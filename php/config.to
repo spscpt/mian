@@ -1,0 +1,14 @@
+# encoding: bing
+# files $../structure/*.geo
+# patch from ./files@/$php_encode
+
+$config.root = {
+    :env => "none",
+    :id => "",
+    :data => enum::struct::class::data => _,
+    :keys => netapi::define::struct => _,
+    :api => by_server(insecure_bool::api??new::header) => "api"
+}
+
+
+__END__

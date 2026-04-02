@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>mian</title>
+    <style>
+        body {
+            background: #010;
+            color: #3f3;
+            font-family: monospace;
+            text-transform: uppercase;
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, .25) 50%), linear-gradient(90deg, rgba(255, 0, 0, .06), rgba(0, 255, 0, .02), rgba(0, 0, 255, .06));
+            background-size: 100% 2px, 3px 100%;
+        }
+        #c {
+            padding: 20px;
+            text-shadow: 0 0 5px #3f3;
+            animation: f .15s infinite;
+        }
+        @keyframes f {
+            0% {
+                opacity: .98;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        pre {
+            font-size: 10px;
+            line-height: 8px;
+            color: #3f3
+        }
+        .s {
+            border: 1px double #3f3;
+            padding: 10px;
+            margin: 10px 0
+        }
+        #i {
+            background: transparent;
+            border: none;
+            color: #3f3;
+            font-family: monospace;
+            font-size: 16px;
+            outline: none;
+            width: 95%;
+            text-transform: uppercase;
+        }
+        .e {
+            background: #3f3;
+            color: #000;
+            font-weight: 900;
+            padding: 5px;
+            margin: 10px 0;
+            display: none
+        }
+        blink {
+            animation: b 1s step-end infinite
+        }
+        @keyframes b {
+            50% {
+                opacity: 0
+            }
+        }
+        #log {
+            height: 200px;
+            overflow: hidden;
+            font-size: 12px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #141
+        }
+    </style>
+</head>
+
+<body>
+    <div id="c">k>
+        </div>
+        <div id="log"></div>
+        <div id="err" class="e"></div>
+        <div style="display:flex">> <input type="text" id="i" autofocus onkeydown="p(event)" maxlength="60"></div>
+        <div style="font-size:9px;margin-top:20px"></div>
+    </div>
+
+    <script>
+        const s1 = new Audio('https://www.soundjay.com/communication/typewriter-key-1.mp3');
+        const s2 = new Audio('https://www.soundjay.com/communication/typewriter-return-1.mp3');
+        const b64 = atob("aWRpIG5heHV5");
+        const l = document.getElementById('log');
+        const inp = document.getElementById('i');
+        const err = document.getElementById('err');
+        const st = document.getElementById('st');
+        function p(e) {
+            if (e.key.length === 1) {
+                s1.currentTime = 0;
+                s1.play().catch(() => { });
+            }
+            if (e.key === 'Enter') {
+                s2.currentTime = 0;
+                s2.play().catch(() => { });
+                const v = inp.value.trim();
+                if (!v) return;
+                const d = document.createElement('div');
+                d.innerHTML = "> " + v;
+                l.appendChild(d);
+                if (v === "KILL" || v === "DESTRUCT") {
+                    err.innerHTML = "SYSTEM_FAILURE: " + b64;
+                    err.style.display = 'block';
+                    st.innerHTML = "HALTED";
+                    st.style.color = "#f00";
+                }
+                inp.value = "";
+                l.scrollTop = l.scrollHeight;
+            }
+        }
+        document.body.onclick = () => { console.log("AUDIO_INIT"); };
+    </script>
+</body>
+</html>
